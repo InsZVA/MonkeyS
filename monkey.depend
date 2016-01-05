@@ -1,0 +1,37 @@
+# depslib dependency file v1.0
+1451979358 source:/home/inszva/monkey/monkey/btree/btree.c
+	<stdlib.h>
+	<stdio.h>
+	<assert.h>
+	"btree.h"
+	"../storage/storage.h"
+
+1451913286 /home/inszva/monkey/monkey/btree/btree.h
+
+1451980338 source:/home/inszva/monkey/monkey/console.c
+	"core.h"
+	<stdio.h>
+	<string.h>
+
+1451927693 /home/inszva/monkey/monkey/storage/storage.h
+	"link.h"
+
+1451900299 /home/inszva/monkey/monkey/storage/link.h
+
+1451927696 source:/home/inszva/monkey/monkey/storage/storage.c
+	"storage.h"
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+
+1451980173 /home/inszva/monkey/monkey/core.h
+	"btree/btree.h"
+	"storage/link.h"
+
+1451979717 source:/home/inszva/monkey/monkey/core.c
+	"btree/btree.h"
+	"storage/storage.h"
+	"core.h"
+	<stdio.h>
+	<string.h>
+
