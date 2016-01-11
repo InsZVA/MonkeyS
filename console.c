@@ -1,13 +1,54 @@
 #include "core.h"
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
+#include <sys/time.h>
 extern LinkNode dbLink;
 Database* db;
+
+void brenchmark2()
+{
+for(int i = 0;i < 100000;i++)
+    {
+    free(malloc(2 << (i%13 + 10)));
+    }
+}
+
+void brenchmark()
+{
+    CreateDB("monkey");
+    db = SwitchDB("monkey");
+    struct timeval struct_start, struct_end;
+    char s[512] = "1232dsazcaffeafa3rfvfsbvq4gfawfaf";
+    gettimeofday(&struct_start,NULL);
+    long start = ((long)struct_start.tv_sec)*1000 +  (long)struct_start.tv_usec/1000;
+    for(int i = 0;i < 100000;i++)
+    {
+        Set(&db->tIndex,&i,s);
+    }
+    gettimeofday(&struct_end, NULL);
+    long end = ((long)struct_end.tv_sec)*1000 + (long)struct_end.tv_usec/1000;
+    printf("Insert 100000 * 1024 within %d\n",end - start);
+    char* a;
+    gettimeofday(&struct_start,NULL);
+    start = ((long)struct_start.tv_sec)*1000 +  (long)struct_start.tv_usec/1000;
+    for(int i = 0;i < 100000;i++)
+    {
+        a = Get(&db->tIndex,&i).pData;
+        if(!a)continue;
+    }
+    gettimeofday(&struct_end, NULL);
+    end = ((long)struct_end.tv_sec)*1000 + (long)struct_end.tv_usec/1000;
+    printf("%s",a);
+    printf("Get 100000 * 1024 within %d\n",end - start);
+}
 
 int main(int argc,char** argv)
 {
     InitStorage();
-    debug();
+    //debug();
+    //brenchmark();
+    brenchmark2();
 }
 
 void debug()

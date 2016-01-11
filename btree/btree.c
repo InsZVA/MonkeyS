@@ -602,7 +602,7 @@ BTNode* BTree_search(const BTree tree, KeyType key, int* pos)
 	printf("BTree_search:\n");
 #endif
 	if (!tree) {
-		printf("BTree is NULL!\n");
+		//printf("BTree is NULL!\n");
         return NULL;
     }
 	*pos = -1;
