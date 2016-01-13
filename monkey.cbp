@@ -49,6 +49,10 @@
 		<Unit filename="storage/link.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="storage/minheap" />
+		<Unit filename="storage/minheap.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="storage/storage.c">
 			<Option compilerVar="CC" />
 		</Unit>

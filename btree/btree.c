@@ -10,18 +10,15 @@
 //#define max(a, b) (((a) > (b)) ? (a) : (b))
 #define cmp(a, b) ( ( ((a)-(b)) >= (0) ) ? (1) : (0) ) //比较a，b大小
 
-unsigned long long GetHash(char* pStr)  //请使用GBK编码
+unsigned long long GetHash(char* pStr)  //BKDR Hask
 {
     unsigned long long hash = 0;
-    char* p = pStr;
-    for(int i = 0;i < 8;i++)
+    unsigned long long seed = 131;
+    while(*pStr)
     {
-        if(*p == 0)break;
-        hash <<= 8;
-        hash ^= *p;
-        p++;
+        hash = hash * seed + (*pStr++);
     }
-    return hash;
+    return hash & 0xffffffffffffffff;
 }
 
 // 模拟向磁盘写入节点

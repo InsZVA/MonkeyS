@@ -7,10 +7,49 @@ void* GetFree(unsigned int);
 
 void InsertFree(unsigned n,void *pData) //向2^n*seg区插入一段空闲空间
 {
-    LinkNode* p = (LinkNode*)malloc(sizeof(LinkNode));  //插入链表第一个节点
-    p->pData = pData;
-    p->next = freeList.partner[n].next;
-    freeList.partner[n].next = p;
+    if(n > MAX_FREE_PART)
+    {
+        free(pData);
+        return;
+    }
+    LinkNode* t = &freeList.partner[n];
+    LinkNode* parent = t;
+    t = t->next;
+    while(t && t->pData < pData)            // 寻找相邻块并合并
+    {
+        if(t->pData + (SEGMENT_SIZE << n) == pData)
+        {
+            parent->next = t->next;
+            //printf("combine");
+            InsertFree(n+1,t->pData);   //Combine
+            free(t);
+            return;
+        }
+        parent = t;
+        t = t->next;
+    }
+    if(t && t->pData == pData + (SEGMENT_SIZE << n))
+    {
+        //printf("combine");
+        InsertFree(n+1,pData);  //合并并插入上个链表
+    }
+    else
+    {
+        if(!t)
+        {
+            LinkNode* p = malloc(sizeof(LinkNode));
+            p->next = NULL;
+            p->pData = pData;
+           parent->next = p;
+        }
+        else
+        {
+            LinkNode* p = malloc(sizeof(LinkNode));
+            p->next = t->next;
+            p->pData = pData;
+            t->next = p;
+        }
+    }
     return;
 }
 

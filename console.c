@@ -5,12 +5,13 @@
 #include <sys/time.h>
 extern LinkNode dbLink;
 Database* db;
-
+void* GetFree(unsigned int);
 void brenchmark2()
 {
 for(int i = 0;i < 100000;i++)
     {
-    free(malloc(2 << (i%13 + 10)));
+   void* p = GetFree(i%13);
+   Free(p);
     }
 }
 
@@ -46,9 +47,9 @@ void brenchmark()
 int main(int argc,char** argv)
 {
     InitStorage();
-    //debug();
+    debug();
     //brenchmark();
-    brenchmark2();
+    //brenchmark2();
 }
 
 void debug()
@@ -63,7 +64,8 @@ void debug()
         if(strcmp(buffer1,"set") == 0)
         {
             scanf(" %s %s",buffer1,buffer2);
-            Set(&db->tIndex,buffer1,buffer2);
+            Response r = Set(&db->tIndex,buffer1,buffer2);
+            printf(r.msg);
         }
         else if(strcmp(buffer1,"get") == 0)
         {
