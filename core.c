@@ -21,7 +21,7 @@ Response Set(BTree* tIndex,char *key,void* data)
     //printf("Set %s(Hash key:%llu) = \"%s\" on data %x\n",key,hash,data,pData);
     Response r;
     r.code = 0;
-    sprintf(r.msg,"Set %s(Hash key:%llu) = \"%s\" on data %x\n",key,hash,data,pData);
+    sprintf(r.msg,"Set %s(Hash key:%llu) on data %x\n",key,hash,pData);
     r.pData = pData + 1;    //第一个字节储存块大小，不返回
     return r;
 }
@@ -36,7 +36,8 @@ Response Get(BTree* tIndex,char *key)
     {
         //printf("Find %s(Hash key:%d) on index %x with data \"%s\"\n",key,hash,p,node->pRecord[p] + 1);
         r.code = 0;
-        sprintf(r.msg,"Find %s(Hash key:%d) on index %x with data \"%s\"\n",key,hash,p,node->pRecord[p] + 1);
+        //sprintf(r.msg,"Find %s(Hash key:%d) on index %x with data \"%s\"\n",key,hash,p,node->pRecord[p] + 1);`会出溢出错误
+        sprintf(r.msg,"Find %s(Hash key:%d) on index %x",key,hash,p);
         r.pData = node->pRecord[p] + 1;     //第一个字节储存块大小，不返回
     }
     else
