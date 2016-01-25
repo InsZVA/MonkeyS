@@ -42,7 +42,7 @@ Response Get(BTree* tIndex,char *key)
     }
     else
     {
-        printf("Cannot find %s\n",key);
+        //printf("Cannot find %s\n",key);
         r.code = 1;
         sprintf(r.msg,"Cannot find %s\n",key);
         r.pData = NULL;

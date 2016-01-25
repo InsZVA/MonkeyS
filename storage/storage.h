@@ -6,6 +6,7 @@
 #define INIT_SEGMENT_NUM 32
 #define MAX_FREE_PART 13    //最大2^13大小的块
 
+
 typedef struct {    //伙伴系统
     LinkNode partner[MAX_FREE_PART];   //2^0~2^13=4096 空头链表
 }FreeList;

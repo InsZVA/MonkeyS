@@ -2,6 +2,8 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+//#define free(a) printf("free %x %d\n",a,__LINE__);free(a);
 FreeList freeList;
 void* GetFree(unsigned int);
 
@@ -9,7 +11,7 @@ void InsertFree(unsigned n,void *pData) //向2^n*seg区插入一段空闲空间
 {
     if(n > MAX_FREE_PART)
     {
-        free(pData);
+        //free(pData);
         return;
     }
     LinkNode* t = &freeList.partner[n];
@@ -101,7 +103,7 @@ void* InsertToFreeList(unsigned int size,void * pData)   //使用空闲空间链
         n >>= 1;
         i++;
     }
-    void *p = GetFree(n);   //获取空间
+    void *p = GetFree(i);   //获取空间
     memset(p,i,1);  //空间第一个字节写入空间大小，为了垃圾回收
     memcpy(p+1,pData,size); //其余空间写入数据
     return p;
