@@ -19,3 +19,5 @@ void* InsertToFreeList(unsigned int size,void * pData);  //向储存引擎插入
 void Free(void* pData); //回收内存
 
 #endif // STORAGE_H_INCLUDED
+
+//LinkList has many 内存泄漏和错误。。。
